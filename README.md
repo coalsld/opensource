@@ -1,2 +1,58 @@
-# opensource
-opensource project
+def input_info():
+    students = []
+    for i in range(5):
+        print(f"{'='*150}")
+        student = {}
+        student['학번'] = input("학번: ")
+        student['이름'] = input("이름: ")
+        student['영어'] = int(input("영어: "))
+        student['C-언어'] = int(input("C-언어: "))
+        student['파이썬'] = int(input("파이썬: "))
+        students.append(student)
+    return students
+
+def total_average(students):
+    for student in students:
+        total = student['영어'] + student['C-언어'] + student['파이썬']
+        average = total / 3
+        student['총점'] = total
+        student['평균'] = average
+
+def grade(students):
+    for student in students:
+        if student['평균'] >= 90:
+            student['학점'] = 'A'
+        elif student['평균'] >= 80:
+            student['학점'] = 'B+'
+        elif student['평균'] >= 70:
+            student['학점'] = 'B'
+        elif student['평균'] >= 60:
+            student['학점'] = 'C+'
+        elif student['평균'] >= 50:
+            student['학점'] = 'C'
+        else:
+            student['학점'] = 'F'
+
+def rank(students):
+    sorted_students = sorted(students, key=lambda x: x['총점'], reverse=True)
+    for i, student in enumerate(sorted_students):
+        student['등수'] = i + 1
+
+def print_students(students):
+    print(f"{'='*150}")
+    print(f"{' '*60}성적관리 프로그램{' '*60}")
+    print(f"{'='*150}")
+    print(f"{'학번':<15}{'이름':<15}{'영어':<10}{'C-언어':<10}{'파이썬':<10}{'총점':<10}{'평균':<10}{'학점':<10}{'등수':<10}")
+    print(f"{'='*150}")
+    for student in students:
+        print(f"{student['학번']:<15}{student['이름']:<15}{student['영어']:<10}{student['C-언어']:<10}{student['파이썬']:<10}{student['총점']:<10}{student['평균']:<10.2f}{student['학점']:<10}{student['등수']:<10}")
+    print(f"{'='*150}")
+
+def main():
+    students = input_info()
+    total_average(students)
+    grade(students)
+    rank(students)
+    print_students(students)
+
+main()
